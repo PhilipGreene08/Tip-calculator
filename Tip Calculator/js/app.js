@@ -1,43 +1,63 @@
 (function () {
+  //main selectors
   const costOfBill = document.getElementById('input-bill')
   const numberOfPeople = document.getElementById('input-users')
   const calculate = document.querySelector('.submitBtn')
   const selectBox = document.querySelector('#input-service')
+  const loader = document.querySelector('.loader')
+  const results = document.querySelector('.results')
+  const tipTotal = document.querySelector('#tip-amount')
+  const totalAmount = document.querySelector('#total-amount')
+  const eachPersonOwes = document.querySelector('#person-amount')
+
 
   //let newOption = new Option(`Option Text`, `Option Value`)
-  let options = [
+  const options = [
     {
-      serviceLevel: `Great`,
-      tipAmount: 20
+      serviceLevel: `Great - 20%`,
+      tipAmount: .20
     },
     {
-      serviceLevel: `Good`,
-      tipAmount: 10
+      serviceLevel: `Good  - 15%`,
+      tipAmount: .15
     },
     {
-      serviceLevel: `Great`,
-      tipAmount: 15
+      serviceLevel: `Bad  - 10% `,
+      tipAmount: .10
     }]
+
+
+  // add options to service level
+  options.forEach(option => {
+    const newOption = document.createElement('option')
+    newOption.textContent = option.serviceLevel
+    newOption.value = option.tipAmount
+    selectBox.appendChild(newOption)
+  })
 
   //get and calculate value of bill
   calculate.addEventListener('click', e => {
     e.preventDefault()
     const costPerPerson = costOfBill.value / numberOfPeople.value
-    console.log(costPerPerson);
+    const tipAmount = costOfBill.value * selectBox.value
+    // const totalAmountOwed = (costO)
+    console.log((costOfBill.value * tipAmount));
+    results.style.display = `block`
+    tipTotal.textContent = tipAmount
+    totalAmount.textContent = tipAmount
+    eachPersonOwes.textContent = tipAmount
+    console.log(tipTotal);
   })
 
+  // function showLoader() {
+  //   setTimeout(loader.style.display = 'block', 3000)
+  // }
 
-  //add options to service level
-  function addOption(serviceLevel, tipAmount) {
-    selectBox.options[selectBox.options.length] = new Option(serviceLevel, tipAmount)
-    console.log(selectBox);
-  }
 
-  addOption(`Great`, 20)
-  addOption(`Ok`, 10)
-  addOption(`Bad`, 5)
+
+
+
 })()
-
 
 
 
